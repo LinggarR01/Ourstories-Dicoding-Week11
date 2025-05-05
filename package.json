@@ -1,0 +1,21 @@
+{
+  "name": "ourstories",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.3.3"
+  },
+  "main": "vite.config.js",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "sweetalert2": "^11.19.1"
+  }
+}

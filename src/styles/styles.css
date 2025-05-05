@@ -1,0 +1,811 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  padding-inline: 32px;
+  margin-inline: auto;
+  max-width: 1300px;
+}
+
+header {
+  background: linear-gradient(to left, #102E50, #295083); 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #d4e9f7;
+  padding: 0 1.5rem;
+  border-radius: 0 0 12px 12px;
+}
+
+.main-header {
+  min-height: 90px;
+  padding-block: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* Tambahan opsional untuk isi header */
+.main-header h1,
+.main-header a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.main-header a:hover {
+  text-decoration: none;
+  color: #b5b5b5;
+}
+
+/* Header Layout */
+.saved-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.brand-name {
+  font-size: 1.125rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.navigation-drawer {
+  min-height: 100vh;
+  width: 200px;
+  padding: 20px 10px;
+  background-color: #000000;
+
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+
+  box-shadow: 0 0 4px 2px #00000033;
+  transform: translateX(-100%);
+  transition: transform 350ms;
+
+  z-index: 9999;
+}
+
+.navigation-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-button {
+  padding: 8px;
+  border: 0;
+  border-radius: 4px;
+
+  display: inline-block;
+  background-color: transparent;
+
+  font-weight: bold;
+  font-size: 28px;
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px 20px;
+}
+
+.nav-list li a {
+  padding: 6px 10px;
+
+  display: block;
+  
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.nav-list li a:hover {
+  color: #b5b5b5; 
+  transform: translateY(-2px); 
+}
+
+/* MAIN */
+.main-content {
+  padding-block: 20px;
+  background: linear-gradient(to bottom, #fefcbf, #dfe9f3);
+}
+
+
+/* Menampilkan story-list dalam barisan flex */
+.story-list {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px; 
+  justify-content: space-between; 
+}
+
+/* Styling untuk tiap story-card */
+.story-card {
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 1rem;
+  background-color: #102E50;
+  width: calc(33.33% - 20px); 
+  box-sizing: border-box; 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 2);
+}
+
+/* Styling gambar di dalam story-card */
+.story-card img {
+  width: 100%; 
+  height: 180px;
+  object-fit: cover; 
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* Memperbaiki styling nama dan deskripsi di dalam card */
+.story-card h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  
+}
+
+
+.story-card p {
+  font-size: 0.9rem;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.story-card a {
+  /* Gaya dasar button */
+  display: inline-block;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #048d68;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  
+  /* Tambahan untuk tampilan lebih baik */
+  min-width: 120px;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 1rem;
+}
+
+/* Hover state */
+.story-card a:hover {
+  background-color: #ffffff;
+  transform: translateY(4px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  color: #000000;
+}
+
+
+/* Styling untuk story-detail */
+.story-card-detail {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.story-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.story-name {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.story-date {
+  font-size: 0.9rem;
+  color: gray;
+  margin-bottom: 1rem;
+}
+
+.story-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.add-story-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.add-story-card {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 700px;
+  border: 3px solid #102E50;
+}
+
+.add-story-title {
+  text-align: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.add-story-form .form-group {
+  margin-bottom: 1.2rem;
+}
+
+.add-story-form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.camera-preview {
+  width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  object-fit: cover;
+}
+
+.preview-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+.map-area {
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  background-color: #4da9ff;
+  color: #fff;
+  border: none;
+}
+
+.btn-secondary {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+}
+
+/* Container dan Centering */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f7f9fc;
+  padding: 1rem;
+}
+
+/* Kartu login */
+.login-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Judul login */
+.login-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Form styling */
+.login-form .form-group {
+  margin-bottom: 1.2rem;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.login-form input.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Tombol login */
+.btn-login {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #0056b3;
+}
+
+.spinner-border {
+  margin-left: 10px;
+}
+
+/* Footer */
+.login-footer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.login-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+.loader {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+
+
+.message-box {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  max-width: 300px;
+  width: 90%;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: #444;
+  text-align: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Tampilkan dengan animasi */
+.message-box.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Jenis status */
+.message-box.success {
+  background-color: #2ecc71;
+}
+
+.message-box.error {
+  background-color: #e74c3c;
+}
+
+
+.message-box.show {
+  opacity: 1;
+}
+
+.message-success {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+
+/* Loader di tengah halaman */
+.overlay-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+
+.d-none {
+  display: none;
+}
+
+#map {
+  height: 400px; 
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.container h1 {
+  margin-bottom: 20px; 
+  text-align: center; 
+  font-size: 2rem;
+}
+
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f7f9fc;
+  padding: 1rem;
+}
+
+.register-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.register-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.register-form .register-form-group {
+  margin-bottom: 1.2rem;
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.register-form .register-form-control {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.register-form .register-form-control:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.register-btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.register-btn:hover {
+  background-color: #0056b3;
+}
+
+.register-loader {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #ffffff;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 1s linear infinite;
+  margin-left: 8px;
+}
+
+
+
+.register-footer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.register-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.register-footer a:hover {
+  text-decoration: underline;
+}
+
+.register-message-box {
+  text-align: center;
+  margin: 1rem auto;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  max-width: 420px;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.register-message-box.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.register-message-box.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Default (desktop) transition */
+.page-transition {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.page-transition.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition.hide {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.btn-save-story {
+  display: block; 
+  margin: 20px auto; 
+  width: 30%;
+  padding: 10px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.btn-save-story:hover {
+  background-color: #45a049;
+}
+
+.nav-button {
+  background: white;
+  border: none;
+  color: black;
+  font: inherit;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-button:hover {
+  background-color: rgb(255, 0, 0);
+}
+
+/* Make it look like other nav links */
+.nav-list li button {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Delete All Button */
+.btn-delete-all {
+  padding: 8px 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.btn-delete-all:hover {
+  background-color: #d32f2f;
+}
+
+/* Individual Delete Buttons */
+.btn-delete-story {
+  /* Gaya dasar button */
+  display: inline-block;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #f50000;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  
+  /* Tambahan untuk tampilan lebih baik */
+  min-width: 120px;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 1rem;
+}
+
+.btn-delete-story:hover {
+  background-color: #454545;
+}
+
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000000;
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 1000;
+  transition: top 0.3s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+@media screen and (width > 1000px) {
+  .navigation-drawer {
+    min-height: auto;
+    width: auto;
+    padding: 0;
+    background-color: transparent;
+
+    flex-direction: row;
+    justify-content: space-between;
+
+    position: static;
+    box-shadow: none;
+    transform: translateX(0);
+  }
+
+  .nav-list {
+    flex-direction: row;
+  }
+
+  .nav-list li a {
+    display: inline-block;
+  }
+
+  .drawer-button {
+    display: none;
+  }
+}
+
+/* Mobile transition: fade + scale */
+@media (max-width: 768px) {
+  .page-transition {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  .page-transition.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsif: Ganti 3 per baris jadi 2 saat layar kecil */
+@media (max-width: 768px) {
+  .story-card {
+    width: calc(50% - 20px); 
+  }
+}
+
+/* Responsif: Ganti jadi 1 kolom saat layar sangat kecil */
+@media (max-width: 480px) {
+  .story-card {
+    width: 100%; 
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+

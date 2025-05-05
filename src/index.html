@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="shortcut icon" href="/favicon.png"/>
+        <title>OurStories</title>
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        
+        <script type="module" src="/scripts/index.js"></script>
+    </head>
+    <a href="#main-content" class="skip-to-content">Skip to content</a>
+    <body>
+        <header>
+            <div class="main-header container">
+                <a class="brand-name" href="#/">OurStories</a>
+                
+                <nav id="navigation-drawer" class="navigation-drawer">
+                    <ul id="nav-list" class="nav-list">
+                        <li style="display: none;" id="homeItem">
+                            <a href="#/">Home</a>
+                        </li>
+                        <li style="display: none;" id="savedItem">
+                            <a href="#/saved">Saved</a>
+                        </li>
+                        <li id="addstoryItem" style="display: none;">
+                            <a href="#/addstory">Add Story</a>
+                        </li>
+                        <li id="logoutItem" style="display: none;">
+                            <a href="#" id="logoutButton">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <button id="drawer-button" class="drawer-button">☰</button>
+            </div>
+        </header>
+
+        <main id="main-content" class="main-content" tabindex="-1"></main>
+    </body>
+</html>
