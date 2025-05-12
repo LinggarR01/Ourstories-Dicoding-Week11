@@ -3,21 +3,24 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="theme-color" content="#102E50"/>
+        <link rel="manifest" href="/manifest.webmanifest"/>
         <link rel="shortcut icon" href="/favicon.png"/>
         <title>OurStories</title>
         <!-- Leaflet CSS -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
         <!-- Leaflet JS -->
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-        
+
         <script type="module" src="/scripts/index.js"></script>
+        <!-- <script type="module" src="/public/service-worker.js"></script> -->
     </head>
     <a href="#main-content" class="skip-to-content">Skip to content</a>
     <body>
         <header>
             <div class="main-header container">
                 <a class="brand-name" href="#/">OurStories</a>
-                
+
                 <nav id="navigation-drawer" class="navigation-drawer">
                     <ul id="nav-list" class="nav-list">
                         <li style="display: none;" id="homeItem">
@@ -34,8 +37,16 @@
                         </li>
                     </ul>
                 </nav>
-                
+
                 <button id="drawer-button" class="drawer-button">☰</button>
+                <button id="toggle-notif-btn">
+                    <img
+                        id="notif-icon"
+                        src="./icons/bell.svg"
+                        alt="Ikon"
+                        style="width: 16px; margin-right: 8px;"/>
+                    <span id="notif-label">Aktifkan Notifikasi</span>
+                </button>
             </div>
         </header>
 

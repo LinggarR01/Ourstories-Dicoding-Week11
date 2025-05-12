@@ -110,6 +110,26 @@ class App {
       return;
     }
 
+    function updateDrawerButtonVisibility() {
+      const token = localStorage.getItem("token");
+      const url = getActiveRoute();
+      const isMobile = window.innerWidth <= 1000;
+      const publicRoutes = ["/login", "/register"];
+      const drawerBtn = document.getElementById("drawer-button");
+    
+      if (!drawerBtn) return;
+    
+      if (token && !publicRoutes.includes(url) && isMobile) {
+        drawerBtn.style.visibility = "visible";
+      } else {
+        drawerBtn.style.visibility = "hidden";
+      }
+    }
+    // Jalankan saat pertama kali halaman dimuat
+    updateDrawerButtonVisibility();
+    // Jalankan ulang setiap kali layar diubah ukurannya
+    window.addEventListener("resize", updateDrawerButtonVisibility);
+    
     // Transisi keluar jika ada halaman sebelumnya
     const oldPage = this.#content.querySelector(".page-transition");
     if (oldPage) {

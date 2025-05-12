@@ -1,4 +1,5 @@
 import { CONFIG } from "../config";
+import { urlBase64ToUint8Array } from "../utils/vapid";
 
 const ENDPOINTS = {
   // POST METHOD
@@ -9,7 +10,72 @@ const ENDPOINTS = {
   // GET METHOD
   ALL_STORY: `${CONFIG.BASE_URL}/stories`,
   DETAIL_STORY: (id) => `${CONFIG.BASE_URL}/stories/${id}`,
+  // SUBS/UNSUBS
+  SUBSCRIBE: `${CONFIG.BASE_URL}/notifications/subscribe`,
+  UNSUBSCRIBE: `${CONFIG.BASE_URL}/notifications/subscribe`,
 };
+
+// export async function subscribePushNotifications({ endpoint, keys }, token) {
+//   const response = await fetch(ENDPOINTS.SUBSCRIBE, {
+//     method: "POST",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       endpoint,
+//       keys,
+//     }),
+//   });
+
+//   const json = await response.json();
+
+//   return {
+//     ...json,
+//     ok: response.ok,
+//     status: response.status,
+//   };
+// }
+
+export async function setupPushSubscription(token) {
+  const registration = await navigator.serviceWorker.ready;
+
+  let subscription = await registration.pushManager.getSubscription();
+  if (!subscription) {
+    subscription = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(CONFIG.VAPID_KEYS),
+    });
+  }
+
+  const rawP256dh = subscription.getKey("p256dh");
+  const rawAuth = subscription.getKey("auth");
+
+  if (!rawP256dh || !rawAuth) {
+    throw new Error("Gagal mengambil key subscription");
+  }
+
+  const p256dh = btoa(String.fromCharCode(...new Uint8Array(rawP256dh)));
+  const auth = btoa(String.fromCharCode(...new Uint8Array(rawAuth)));
+
+  const payload = {
+    endpoint: subscription.endpoint,
+    keys: { p256dh, auth },
+  };
+
+  const response = await fetch(`${CONFIG.BASE_URL}/notifications/subscribe`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const json = await response.json();
+  if (!response.ok) throw new Error(json.message || "Subscribe gagal");
+  console.log("Berhasil subscribe push:", json);
+}
 
 export async function getAllStory(page, size, location) {
   const token = localStorage.getItem("token");
