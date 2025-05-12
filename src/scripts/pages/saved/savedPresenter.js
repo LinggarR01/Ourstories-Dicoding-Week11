@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2';
+import { getAllStories, deleteStory, clearAllStories } from '../../utils/indexedDB'; // pastikan path sesuai
 
 export default class SavedStoryPresenter {
   constructor() {
@@ -8,7 +9,7 @@ export default class SavedStoryPresenter {
   init({ container, deleteAllButton }) {
     this._container = container;
     this._deleteAllButton = deleteAllButton;
-    
+
     this._loadSavedStories();
     this._setupDeleteAllButton();
   }
@@ -16,8 +17,8 @@ export default class SavedStoryPresenter {
   _setupDeleteAllButton() {
     if (this._deleteAllButton) {
       this._deleteAllButton.addEventListener('click', async () => {
-        const savedStories = JSON.parse(localStorage.getItem("savedStories")) || [];
-        
+        const savedStories = await getAllStories();
+
         if (savedStories.length === 0) {
           await Swal.fire({
             icon: 'info',
@@ -40,7 +41,7 @@ export default class SavedStoryPresenter {
         });
 
         if (result.isConfirmed) {
-          localStorage.removeItem("savedStories");
+          await clearAllStories();
           await Swal.fire({
             icon: 'success',
             title: 'Berhasil dihapus!',
@@ -53,9 +54,9 @@ export default class SavedStoryPresenter {
     }
   }
 
-  _loadSavedStories() {
-    const savedStories = JSON.parse(localStorage.getItem("savedStories")) || [];
-    
+  async _loadSavedStories() {
+    const savedStories = await getAllStories();
+
     // Update delete button visibility
     if (this._deleteAllButton) {
       this._deleteAllButton.style.display = savedStories.length > 0 ? 'block' : 'none';
@@ -82,7 +83,6 @@ export default class SavedStoryPresenter {
       )
       .join("");
 
-    // Add event listeners for individual delete buttons
     document.querySelectorAll('.btn-delete-story').forEach(button => {
       button.addEventListener('click', (e) => this._deleteSingleStory(e));
     });
@@ -90,8 +90,7 @@ export default class SavedStoryPresenter {
 
   async _deleteSingleStory(event) {
     const storyId = event.target.getAttribute('data-id');
-    const savedStories = JSON.parse(localStorage.getItem("savedStories")) || [];
-    
+
     const result = await Swal.fire({
       icon: 'question',
       title: 'Hapus laporan ini?',
@@ -104,16 +103,13 @@ export default class SavedStoryPresenter {
     });
 
     if (result.isConfirmed) {
-      const updatedStories = savedStories.filter(story => story.id !== storyId);
-      localStorage.setItem("savedStories", JSON.stringify(updatedStories));
-      
+      await deleteStory(storyId);
       await Swal.fire({
         icon: 'success',
         title: 'Berhasil dihapus!',
         text: 'Laporan telah dihapus',
         confirmButtonColor: '#4caf50',
       });
-      
       this._loadSavedStories();
     }
   }
