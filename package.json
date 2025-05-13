@@ -5,11 +5,9 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview",
-        "deletedist": "rmdir /s /q dist",
-        "build:sw": "vite build && workbox generateSW workbox-config.cjs",
-        "preview:sw": "npm run build:sw && vite preview"
+        "build": "vite build && workbox generateSW workbox-config.cjs",
+        "preview": "npm run build && vite preview",
+        "deletedist": "rmdir /s /q dist"
     },
     "devDependencies": {
         "vite": "^6.3.3",
