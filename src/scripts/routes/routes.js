@@ -4,6 +4,7 @@ import SavedPage from '../pages/saved/saved-page';
 import LoginPage from '../pages/login/login-page';
 import StoryPage from '../pages/story/story-page';
 import AddStoryPage from '../pages/addstory/addstory-page';
+import NotFound from '../pages/NotFound';
 
 const routes = {
   '/': new HomePage(),
@@ -12,6 +13,7 @@ const routes = {
   '/login': new LoginPage(),
   '/stories/:id': new StoryPage(),
   '/addstory': new AddStoryPage(),
+  '*': new NotFound(),
 };
 
 export default routes;

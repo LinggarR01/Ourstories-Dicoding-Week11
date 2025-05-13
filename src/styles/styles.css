@@ -834,5 +834,21 @@ header {
   color: #fbfbfb;
 }
 
+.not-found {
+  text-align: center;
+  margin-top: 5rem;
+  color: #555;
+}
+
+.not-found h2 {
+  font-size: 2rem;
+}
+
+.not-found a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #4caf50;
+  text-decoration: underline;
+}
 
 

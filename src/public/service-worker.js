@@ -29,22 +29,21 @@ const CACHE_NAME = "ourstories-cache-v1";
 const STATIC_ASSETS = [
   "/",
   "/index.html",
-  "/scripts/index.js",
-  "/styles/styles.css",
   "/manifest.webmanifest",
   "/favicon.png",
   "/images/logo.png",
   "/icons/bell.svg",
   "/icons/bell-off.svg",
   "https://unpkg.com/leaflet/dist/leaflet.css",
-  "https://unpkg.com/leaflet/dist/leaflet.js"
+  "https://unpkg.com/leaflet/dist/leaflet.js",
 ];
 
-self.addEventListener("install", (event) => {
+self.addEventListener("install", function (event) {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+    caches.open(CACHE_NAME).then(function (cache) {
+      return cache.addAll(STATIC_ASSETS);
+    })
   );
-  self.skipWaiting();
 });
 
 self.addEventListener("fetch", (event) => {

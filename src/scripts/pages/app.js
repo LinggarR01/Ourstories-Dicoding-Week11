@@ -74,7 +74,7 @@ class App {
 
   async renderPage() {
     const url = getActiveRoute();
-    const page = routes[url];
+    const page = routes[url] || routes['*'];
 
     if (!page) {
       this.#content.innerHTML = "<h1>404 - Halaman tidak ditemukan</h1>";
@@ -162,6 +162,7 @@ class App {
     } else {
       transitionHandler();
     }
+    
 
     //  Panggil afterRender setelah konten tampil
     await page.afterRender();

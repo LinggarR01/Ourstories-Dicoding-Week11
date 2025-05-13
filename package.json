@@ -1,22 +1,25 @@
 {
-  "name": "ourstories",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "rebuild": "rmdir /s /q dist && vite build && vite preview",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "vite": "^6.3.3"
-  },
-  "main": "vite.config.js",
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "sweetalert2": "^11.19.1"
-  }
+    "name": "ourstories",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "deletedist": "rmdir /s /q dist",
+        "build:sw": "vite build && workbox generateSW workbox-config.cjs",
+        "preview:sw": "npm run build:sw && vite preview"
+    },
+    "devDependencies": {
+        "vite": "^6.3.3",
+        "workbox-cli": "^7.3.0"
+    },
+    "main": "vite.config.js",
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "sweetalert2": "^11.19.1"
+    }
 }
