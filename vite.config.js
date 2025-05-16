@@ -16,10 +16,8 @@ export default defineConfig({
   },
   plugins: [
     VitePWA({
-      srcDir: 'scripts', // relatif dari root: 'src' → berarti src/public
-      filename: 'service-worker.js', // nama file hasil build
-      strategies: 'injectManifest',
-      injectRegister: 'auto', // otomatis register saat load
+      strategies: 'generateSW',
+      injectRegister: 'auto',
       manifest: {
         name: 'OurStories',
         short_name: 'OurStories',
@@ -35,10 +33,36 @@ export default defineConfig({
           },
         ],
       },
-      injectManifest: {
-        swSrc: 'scripts/service-worker.js', 
-        swDest: 'service-worker.js',
-      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webmanifest}'],
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.destination === 'document',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'pages-cache',
+            },
+          },
+          {
+            urlPattern: ({ request }) => request.destination === 'style' || request.destination === 'script',
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'static-resources',
+            },
+          },
+          {
+            urlPattern: ({ request }) => request.destination === 'image',
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'image-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 30 * 24 * 60 * 60,
+              },
+            },
+          }
+        ]
+      }
     }),
   ],
 });
