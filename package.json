@@ -5,12 +5,13 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build && workbox generateSW workbox-config.cjs",
+        "build": "vite build",
         "preview": "npm run build && vite preview",
         "deletedist": "rmdir /s /q dist"
     },
     "devDependencies": {
         "vite": "^6.3.3",
+        "vite-plugin-pwa": "^1.0.0",
         "workbox-cli": "^7.3.0"
     },
     "main": "vite.config.js",
