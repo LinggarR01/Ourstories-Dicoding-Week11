@@ -1,5 +1,5 @@
-import { addNewStory } from "../../data/api";
-import Swal from "sweetalert2";
+import { addNewStory } from '../../data/api';
+import Swal from 'sweetalert2';
 
 class AddStoryPresenter {
   constructor(view) {
@@ -18,17 +18,19 @@ class AddStoryPresenter {
   }
 
   async _initCamera() {
-    const video = document.getElementById("camera-video");
-    const canvas = document.getElementById("snapshotCanvas");
-    const previewImage = document.getElementById("photo-preview");
-    const captureButton = document.getElementById("captureButton");
+    const video = document.getElementById('camera-video');
+    const canvas = document.getElementById('snapshotCanvas');
+    const previewImage = document.getElementById('photo-preview');
+    const captureButton = document.getElementById('captureButton');
 
     try {
-      this.cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      this.cameraStream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+      });
       video.srcObject = this.cameraStream;
 
-      captureButton.addEventListener("click", () => {
-        const context = canvas.getContext("2d");
+      captureButton.addEventListener('click', () => {
+        const context = canvas.getContext('2d');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -38,16 +40,16 @@ class AddStoryPresenter {
 
           const imageURL = URL.createObjectURL(blob);
           previewImage.src = imageURL;
-          previewImage.style.display = "block";
-        }, "image/jpeg");
+          previewImage.style.display = 'block';
+        }, 'image/jpeg');
       });
 
       // Stop kamera ketika hash berubah (keluar dari halaman)
-      window.addEventListener("hashchange", () => {
+      window.addEventListener('hashchange', () => {
         this._stopCamera();
       });
     } catch (err) {
-      console.error("Gagal mengakses kamera:", err);
+      console.error('Gagal mengakses kamera:', err);
     }
   }
 
@@ -58,19 +60,19 @@ class AddStoryPresenter {
   }
 
   _initMap() {
-    const map = L.map("map").setView([-2.5489, 118.0149], 5);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "&copy; OpenStreetMap contributors",
+    const map = L.map('map').setView([-2.5489, 118.0149], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
     }).addTo(map);
 
     const icon = L.icon({
-      iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
       iconSize: [30, 40],
       iconAnchor: [15, 40],
       popupAnchor: [0, -40],
     });
 
-    map.on("click", (e) => {
+    map.on('click', (e) => {
       this.selectedLat = e.latlng.lat;
       this.selectedLon = e.latlng.lng;
 
@@ -83,15 +85,20 @@ class AddStoryPresenter {
   }
 
   _bindEvents() {
-    const addButton = document.getElementById("addStoryButton");
-    addButton.addEventListener("click", () => this._handleSubmit());
+    const addButton = document.getElementById('addStoryButton');
+    addButton.addEventListener('click', () => this._handleSubmit());
   }
 
   async _handleSubmit() {
-    const description = document.getElementById("description").value;
-    const token = localStorage.getItem("token");
+    const description = document.getElementById('description').value;
+    const token = localStorage.getItem('token');
 
-    if (!this.capturedBlob || !description || !this.selectedLat || !this.selectedLon) {
+    if (
+      !this.capturedBlob ||
+      !description ||
+      !this.selectedLat ||
+      !this.selectedLon
+    ) {
       await Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -110,13 +117,16 @@ class AddStoryPresenter {
       });
 
       if (result.ok) {
-        await Swal.fire({
-          icon: 'success',
-          title: 'Berhasil!',
-          text: 'Cerita berhasil ditambahkan!',
-          confirmButtonColor: '#4caf50',
-        });
-        location.hash = "#/";
+        // ← Tampilkan notifikasi lokal lewat SW
+        if ('Notification' in window && navigator.serviceWorker) {
+          const registration = await navigator.serviceWorker.ready;
+          registration.showNotification('Cerita Baru!', {
+            body: 'Cerita kamu berhasil ditambahkan!',
+            icon: '/favicon.png',
+            badge: '/favicon.png',
+          });
+        }
+        location.hash = '#/';
       } else {
         await Swal.fire({
           icon: 'error',
@@ -126,7 +136,7 @@ class AddStoryPresenter {
         });
       }
     } catch (err) {
-      console.error("Terjadi kesalahan saat mengirim data:", err);
+      console.error('Terjadi kesalahan saat mengirim data:', err);
       await Swal.fire({
         icon: 'error',
         title: 'Error',
