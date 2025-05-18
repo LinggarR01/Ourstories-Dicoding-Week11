@@ -30,7 +30,54 @@ export default defineConfig({
         display: 'standalone',
         background_color: '#ffffff',
         theme_color: '#317EFB',
-        icons: [{ src: '/favicon.png', sizes: '192x192', type: 'image/png' }],
+        icons: [
+          {
+            src: '/images/icon-144x144.png',
+            sizes: '144x144',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: '/images/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: '/images/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: '/images/logo.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: '/favicon.png',
+            sizes: '40x40',
+            type: 'image/png',
+            purpose: 'any',
+          },
+        ],
+        screenshots: [
+          {
+            src: '/images/screenshot-desktop.png',
+            sizes: '1280x720',
+            type: 'image/png',
+            form_factor: 'wide',
+            label: 'Desktop View',
+          },
+          {
+            src: '/images/screenshot-mobile.png',
+            sizes: '375x667',
+            type: 'image/png',
+            form_factor: 'narrow',
+            label: 'Mobile View',
+          },
+        ],
       },
       workbox: {
         globPatterns: ['*/.{js,css,html,ico,png,svg,webmanifest}'],
